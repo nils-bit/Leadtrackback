@@ -56,6 +56,15 @@ Set these in Vercel → Settings → Environment Variables:
 | `NOTIFY_EMAIL` | No | Where to send lead emails (defaults to `nils@purasu.se`) |
 | `WIDGET_ALLOWED_ORIGINS` | No | Comma-separated list of allowed origins. Default: `*` (all) |
 
+SMS notifications use Twilio. The default Twilio trial account works for testing — you'll just need to verify your own phone number first. For production, buy a Swedish phone number from Twilio (around $1/month + ~$0.05 per SMS) or set up an alphanumeric Sender ID if you only need outbound SMS.
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TWILIO_ACCOUNT_SID` | For SMS | Twilio Account SID from https://console.twilio.com |
+| `TWILIO_AUTH_TOKEN` | For SMS | Twilio Auth Token from the same dashboard |
+| `TWILIO_FROM` | For SMS | Twilio phone number to send from (E.164 like `+46xxxxxxxxxx`) or alphanumeric Sender ID (e.g. `LeadTrack`) |
+| `NOTIFY_PHONE` | For SMS | Your phone number to receive callback alerts (E.164 format, e.g. `+46701234567`) |
+
 ## HubSpot CMS Embed
 
 The widget works on HubSpot CMS sites. Either:

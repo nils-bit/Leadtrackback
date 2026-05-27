@@ -1,6 +1,7 @@
 import { optionsResponse, jsonResponse } from "../cors";
 import { createOrUpdateHubSpotContact } from "@/lib/hubspot";
 import { notifyNewLead } from "@/lib/notify";
+import { notifyCallbackSMS } from "@/lib/sms";
 
 export async function OPTIONS(request: Request) {
   return optionsResponse(request);
@@ -25,7 +26,11 @@ export async function POST(request: Request) {
 
     console.log("[LeadWidget] Callback request:", { name, phone, pageUrl, result });
 
-    await notifyNewLead("callback", { name, phone, pageUrl });
+    // Send email + SMS notifications in parallel; failures in one don't break the other
+    await Promise.allSettled([
+      notifyNewLead("callback", { name, phone, pageUrl }),
+      notifyCallbackSMS({ name, phone, pageUrl }),
+    ]);
 
     return jsonResponse({ ok: true, hubspot: result }, request);
   } catch {
