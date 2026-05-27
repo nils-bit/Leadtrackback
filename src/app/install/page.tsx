@@ -432,7 +432,7 @@ function InstallPage() {
               <h2 className="card-title">Testa notifieringar</h2>
             </div>
             <p className="card-text">
-              Skicka en test-lead till din e-post för att verifiera notifieringar.
+              Skicka en test-lead till alla aktiva kanaler — e-post och/eller SMS — för att verifiera att notifieringar fungerar.
             </p>
             <button
               className="secondary-btn"
