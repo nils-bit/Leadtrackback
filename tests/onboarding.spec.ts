@@ -6,13 +6,13 @@ test.describe("Landing page", () => {
     await expect(page.getByText("Fånga fler kunder")).toBeVisible();
     // Any visible input that takes a URL
     await expect(page.locator("input").first()).toBeVisible();
-    await expect(page.getByRole("button", { name: /Personalize widget/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Personalize widget/i }).first()).toBeVisible();
   });
 
   test("submitting a URL navigates to /install", async ({ page }) => {
     await page.goto("/");
     await page.locator("input").first().fill("purasu.agency");
-    await page.getByRole("button", { name: /Personalize widget/i }).click();
+    await page.getByRole("button", { name: /Personalize widget/i }).first().click();
     await expect(page).toHaveURL(/\/install\?url=purasu\.agency/);
     await expect(page.getByText("Din widget är klar")).toBeVisible({ timeout: 15_000 });
   });
